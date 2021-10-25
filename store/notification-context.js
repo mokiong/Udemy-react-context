@@ -1,5 +1,4 @@
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 const NotificationContext = createContext({
     notification: null,
@@ -9,6 +8,22 @@ const NotificationContext = createContext({
 
 export function NotificationContextProvider(props) {
     const [activeNotification, setActiveNotification] = useState();
+
+    useEffect(() => {
+        if (
+            activeNotification &&
+            (activeNotification.status === 'success' ||
+                activeNotification.status === 'success')
+        ) {
+            const timer = setTimeout(() => {
+                setActiveNotification(null);
+            }, 3000);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+    }, [activeNotification]);
 
     function showNotificationHandler(notificationData) {
         setActiveNotification(notificationData);
