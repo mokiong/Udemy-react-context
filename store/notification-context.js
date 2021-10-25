@@ -25,7 +25,7 @@ export function NotificationContextProvider(props) {
     };
 
     return (
-        <NotificationContext.Provider>
+        <NotificationContext.Provider value={context}>
             {props.children}
         </NotificationContext.Provider>
     );
